@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous"referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">Lotus lane</h2>
+            <h3 id="artist">loyalist</h3>
+            <div class="img_container">
+                <img src="images\cover 1.png" alt="">
+            </div>
+            <audio src="musics\Song 1.mp3"></audio>
+            <!---controls-->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music=document.querySelector('audio');
+        const img= document.querySelector("img");
+        const play=document.getElementById('play');
+        const artist=document.getElementById('artist');
+        const title=document.getElementById('title');
+        const prev=document.getElementById('prev');
+        const next=document.getElementById('next');
+
+        const songs = [
+            {
+                name:"Song 1",
+                title: "Lotus Lane",
+                artist:"loyalist",
+                img:"cover 1",
+            },
+            {
+                name:"Song 2",
+                title: "jjhhbnb",
+                artist:"l",
+                img:"cover 2",
+            },
+            {
+                name:"Song 3",
+                title: "3",
+                artist:"loyalist",
+                img:"cover 3",
+            },
+            {
+                name:"Song 4",
+                title: "4",
+                artist:"loyalist",
+                img:"cover 4",
+            },
+            {
+                name:"Song 5",
+                title: "5",
+                artist:"loyalist",
+                img:"cover 5",
+            },
+        ]
+        let isPlaying = false;
+        //pprev
+        const playMusic=() =>{
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play","fa-pause");
+            img.classList.add("anime");
+        };
+    //pause
+        const pauseMusic=() =>{
+           isPlaying = false;
+            music.pause();
+            play.classList.replace("fa-pause","fa-play");
+             img.classList.remove("anime");
+        };
+
+        play.addEventListener("click",() =>{
+            isPlaying ? pauseMusic() :playMusic();
+        });
+
+        //changing music data
+
+
+        const loadSongs = (songs) => {
+          title.textContent  =songs.title;
+          artist.textContent  =songs.artist;
+          music.src= "musics/" +songs.name+ ".mp3";
+          img.src="images/" +songs.img +".png";
+        };
+        songIndex=0;
+
+        const nextSong= ()=>{
+            songIndex=(songIndex+1)%songs.length;
+            loadSongs(songs[songIndex]);
+            playMusic();
+        }
+        const prevSong= ()=>{
+            songIndex=(songIndex-1+ songs.length)%songs.length;
+            loadSongs(songs[songIndex]);
+            playMusic();
+        }
+
+        next.addEventListener("click", nextSong);
+        prev.addEventListener("click", prevSong);
+        
+
+    </script>
+</body>
+</html>
